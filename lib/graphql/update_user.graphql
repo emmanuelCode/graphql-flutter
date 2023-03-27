@@ -1,0 +1,9 @@
+mutation updateUser($patch: UpdateUserInput!) {
+  updateUser(input: $patch) {
+    user {
+      id
+      name
+      description
+    }
+  }
+}

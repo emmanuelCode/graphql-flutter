@@ -1,0 +1,9 @@
+mutation deleteUser($filter: UserFilter!) {
+  deleteUser(filter: $filter) {
+    msg
+    user {
+      name
+      description
+    }
+  }
+}

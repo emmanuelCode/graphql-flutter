@@ -1,0 +1,11 @@
+query getUser($user: ID!){
+    getUser(id: $user){
+        user{
+            id
+            name
+            description
+        }
+
+    }
+
+}

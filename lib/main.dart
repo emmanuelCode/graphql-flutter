@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:graphql/client.dart';
+import 'package:graphql_sample/graphql_client.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'main.g.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
+}
+
+@riverpod
+GraphQLClient graphQLClient(GraphQLClientRef ref) {
+  return graphQLClientInit();
 }
 
 class MyApp extends StatelessWidget {
@@ -28,13 +39,10 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
         title: Text(title),
       ),
       body: Center(
-
         child: Column(
-
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
@@ -51,7 +59,7 @@ class MyHomePage extends StatelessWidget {
         onPressed: () {},
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), 
+      ),
     );
   }
 }
