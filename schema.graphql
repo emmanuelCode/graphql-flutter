@@ -1,0 +1,19 @@
+type User {
+  id: ID!
+  name: String!
+  description: String
+}
+
+# type Query {
+#  getUser(id: ID!): User      
+# }
+
+# type Mutation {
+#   addUser(name: String!, description: String!): User
+# }
+
+# input AddUser {
+#   id:ID!
+#   name:String!
+#   description:String
+# }
