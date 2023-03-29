@@ -6,14 +6,12 @@ part of 'user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-// ignore: non_constant_identifier_names
 _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       id: json['id'] as String,
       name: json['name'] as String,
       description: json['description'] as String,
     );
 
-// ignore: non_constant_identifier_names
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
@@ -24,12 +22,12 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userQueriesHash() => r'496e46a72ce5f16be9e59e71d8511370244c625c';
+String _$userQueriesHash() => r'bd7b13647d6c257a58523dbc2cbf5256a23d722b';
 
 /// See also [UserQueries].
 @ProviderFor(UserQueries)
 final userQueriesProvider =
-    AutoDisposeNotifierProvider<UserQueries, List<User>>.internal(
+    AutoDisposeNotifierProvider<UserQueries, User>.internal(
   UserQueries.new,
   name: r'userQueriesProvider',
   debugGetCreateSourceHash:
@@ -38,5 +36,5 @@ final userQueriesProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$UserQueries = AutoDisposeNotifier<List<User>>;
+typedef _$UserQueries = AutoDisposeNotifier<User>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

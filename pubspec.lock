@@ -359,10 +359,10 @@ packages:
     dependency: "direct main"
     description:
       name: graphql
-      sha256: "68bb34f7d239b7c9530c37de754ccb4b9e19927d838fd103da297444c11dad62"
+      sha256: bda5b794345087ccbd16942045be8091e2ac4619285bb22e73555d5fd88c4043
       url: "https://pub.dev"
     source: hosted
-    version: "5.1.2"
+    version: "5.2.0-beta.1"
   graphs:
     dependency: transitive
     description:
@@ -495,10 +495,10 @@ packages:
     dependency: transitive
     description:
       name: normalize
-      sha256: baf8caf2d8b745af5737cca6c24f7fe3cf3158897fdbcde9a909b9c8d3e2e5af
+      sha256: "31a6742a7d702a0dc6f66536bf6749af85fae51ffcd77bf27de1e5c01b314c12"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.2"
+    version: "0.8.0+1"
   package_config:
     dependency: transitive
     description:
