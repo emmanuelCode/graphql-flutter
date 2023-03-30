@@ -1,6 +1,7 @@
 mutation addUser($user: [AddUserInput!]!) {
   addUser(input: $user) {
     user {
+      id #must specify an id ,to expose the generated id
       name
       description
     }

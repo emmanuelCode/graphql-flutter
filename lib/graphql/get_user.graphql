@@ -1,10 +1,8 @@
-query getUser($user: ID!){
-    getUser(id: $user){
-        user{
+query getUser($userID: ID!){
+    getUser(id: $userID){
             id
             name
             description
-        }
 
     }
 

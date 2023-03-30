@@ -10,16 +10,25 @@ class UserWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer(builder: (context, WidgetRef ref, __) {
       var user = ref.watch(userQueriesProvider);
-      return Column(
-        children: [
-          ListTile(
-            leading: Text(user.id),
-            title: Text(user.name),
-            subtitle: Text(user.description),
-          ),
-          const Spacer(),
-          const ButtonsRow(),
-        ],
+      return 
+      
+      
+      Scaffold(
+
+        body: Column(
+          children: [
+          ListView(
+            shrinkWrap: true,
+              children: [ListTile(
+                leading: Text(user.id),
+                title: Text(user.name),
+                subtitle: Text(user.description ?? 'null'),
+              ),]
+            ),
+            //const Spacer(),
+            const ButtonsRow(),
+          ],
+        ),
       );
     });
   }
@@ -36,8 +45,8 @@ class ButtonsRow extends ConsumerWidget {
       children: [
         // add
         OutlinedButton(
-          onPressed: () {
-            userQueries.addUser(name: 'John', description: 'Doe');
+          onPressed: () async {
+           await userQueries.addUser(name: 'John', description: 'Doe');
           },
           child: const Text('add'),
         ),
@@ -53,7 +62,9 @@ class ButtonsRow extends ConsumerWidget {
         ),
         // get
         OutlinedButton(
-          onPressed: () {},
+          onPressed: () async {
+            await userQueries.getUser('0x15');
+          },
           child: const Text('get'),
         ),
       ],

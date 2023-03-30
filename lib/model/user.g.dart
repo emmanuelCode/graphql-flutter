@@ -9,7 +9,7 @@ part of 'user.dart';
 _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       id: json['id'] as String,
       name: json['name'] as String,
-      description: json['description'] as String,
+      description: json['description'] as String?,
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
@@ -22,7 +22,7 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userQueriesHash() => r'bd7b13647d6c257a58523dbc2cbf5256a23d722b';
+String _$userQueriesHash() => r'57f5970683b90e17662ea4d639a1a752bfa6be7d';
 
 /// See also [UserQueries].
 @ProviderFor(UserQueries)

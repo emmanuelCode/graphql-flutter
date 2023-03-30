@@ -5,7 +5,7 @@ GraphQLClient graphQLClientInit() {
 
 
 final httpLink = HttpLink(
-  'https://localhost:8080/graphql',
+  'http://192.168.1.35:8080/graphql', //todo trap
 );
 
 final authLink = AuthLink(

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:graphql/client.dart' hide JsonSerializable;
+import 'package:graphql/client.dart' hide JsonSerializable; //todo trap
 import 'package:graphql_sample/main.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -14,7 +14,7 @@ class User with _$User {
   const factory User({
     required String id,
     required String name,
-    required String description,
+    required String? description,
   }) = _User;
 
   factory User.fromJson(Map<String, Object?> json) => _$UserFromJson(json);
@@ -23,6 +23,7 @@ class User with _$User {
 @riverpod
 class UserQueries extends _$UserQueries {
   late final GraphQLClient client;
+  bool isLoading = false;
 
   @override
   User build() {
@@ -30,34 +31,77 @@ class UserQueries extends _$UserQueries {
     return const User(id: 'null', name: 'null', description: 'null');
   }
 
-  void addUser({required String name, String? description}) async {
+  Future<void> addUser({required String name, String? description}) async {
     final addUserQuery =
         await rootBundle.loadString('lib/graphql/add_user.graphql');
 
-    final QueryOptions options = QueryOptions(
+    final MutationOptions options = MutationOptions(
       document: gql(addUserQuery),
       variables: <String, dynamic>{
-        'name': name,
-        'description': description,
+        'user': {
+          'name': name,
+          'description': description,
+        }
       },
     );
 
-    final QueryResult result = await client.query(options);
+    final QueryResult result = await client.mutate(options);
+
+    if (result.isLoading && result.data != null) {
+      isLoading = true;
+    }
 
     if (result.hasException) {
       debugPrint(result.exception.toString());
     }
 
-    //retrieve the data
-    final User user = result.data!['user'] as User;
-    state = user;
+    debugPrint('USER: ${result.data}');
 
-    debugPrint('USER: ${user.toString()}');
+    debugPrint('USER: ${result.data!['addUser']['user'][0]}');
+    final userJson = result.data!['addUser']['user'][0];
+
+    // retrieve the data
+    final User user = User.fromJson(userJson);
+    state = state.copyWith(
+        id: user.id, name: user.name, description: user.description);
+
   }
 
   void deleteUser() async {}
 
   void updateUser() async {}
 
-  void getUser() async {}
+  // need to add a user before getting one the local server
+  Future<void> getUser(String id) async {
+    final getUserQuery =
+        await rootBundle.loadString('lib/graphql/get_user.graphql');
+
+    final QueryOptions options = QueryOptions(
+      document: gql(getUserQuery),
+      variables: <String, dynamic>{
+          // the variable put here must match the query variable //todo trap
+          'userID': id
+      },
+    );
+
+    final QueryResult result = await client.query(options);
+
+    if (result.isLoading && result.data != null) {
+      isLoading = true;
+    }
+
+    if (result.hasException) {
+      debugPrint(result.exception.toString());
+    }
+
+    debugPrint('FULL USER RESULT: ${result.data}');
+
+    debugPrint('USER TRIM DOWN: ${result.data!['getUser']}');
+    final userJson = result.data!['getUser'];
+
+    // retrieve the data
+    final User user = User.fromJson(userJson);
+    state = state.copyWith(
+         id: user.id, name: user.name, description: user.description);
+  }
 }
