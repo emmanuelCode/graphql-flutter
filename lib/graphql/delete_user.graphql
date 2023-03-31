@@ -1,7 +1,8 @@
 mutation deleteUser($filter: UserFilter!) {
   deleteUser(filter: $filter) {
-    msg
+    msg # message on the deletion status
     user {
+      id
       name
       description
     }

@@ -32,11 +32,11 @@ class UserQueries extends _$UserQueries {
   }
 
   Future<void> addUser({required String name, String? description}) async {
-    final addUserQuery =
+    final addUserMutation =
         await rootBundle.loadString('lib/graphql/add_user.graphql');
 
     final MutationOptions options = MutationOptions(
-      document: gql(addUserQuery),
+      document: gql(addUserMutation),
       variables: <String, dynamic>{
         'user': {
           'name': name,
@@ -64,12 +64,80 @@ class UserQueries extends _$UserQueries {
     final User user = User.fromJson(userJson);
     state = state.copyWith(
         id: user.id, name: user.name, description: user.description);
-
   }
 
-  void deleteUser() async {}
+  Future<void> deleteUser(String id) async {
+    final deleteUserMutation =
+        await rootBundle.loadString('lib/graphql/delete_user.graphql');
 
-  void updateUser() async {}
+    final MutationOptions options = MutationOptions(
+      document: gql(deleteUserMutation),
+      variables: <String, dynamic>{
+        'filter': {
+          'id': id,
+        }
+      },
+    );
+
+    final QueryResult result = await client.mutate(options);
+
+    if (result.isLoading && result.data != null) {
+      isLoading = true;
+    }
+
+    if (result.hasException) {
+      debugPrint(result.exception.toString());
+    }
+
+    debugPrint('DELETED USER: ${result.data}');
+    debugPrint('DELETED USER TRIM DOWN: ${result.data!['user'][0]}');
+  }
+
+  Future<void> updateUser({
+    String id = '0x1d',
+    String name = 'update John',
+    String description = 'update Doe',
+  }) async {
+    final updateUserMutation =
+        await rootBundle.loadString('lib/graphql/update_user.graphql');
+
+    final MutationOptions options = MutationOptions(
+      document: gql(updateUserMutation),
+      variables: <String, dynamic>{
+        'patch': {
+          'filter': {
+            'id': [id],
+          },
+          'set': {
+            'name': name,
+            'description': description,
+          }
+        }
+      },
+    );
+
+    final QueryResult result = await client.mutate(options);
+
+    if (result.isLoading && result.data != null) {
+      isLoading = true;
+    }
+
+    if (result.hasException) {
+      debugPrint(result.exception.toString());
+    }
+
+    debugPrint('UPDATED USER: ${result.data}');
+    debugPrint('UPDATED USER TRIM DOWN: ${result.data!['updateUser']['user'][0]}');
+
+
+    final userJson = result.data!['updateUser']['user'][0]; // todo error when null
+
+     final User user = User.fromJson(userJson);
+    state = state.copyWith(
+        id: user.id, name: user.name, description: user.description);
+
+
+  }
 
   // need to add a user before getting one the local server
   Future<void> getUser(String id) async {
@@ -79,8 +147,8 @@ class UserQueries extends _$UserQueries {
     final QueryOptions options = QueryOptions(
       document: gql(getUserQuery),
       variables: <String, dynamic>{
-          // the variable put here must match the query variable //todo trap
-          'userID': id
+        // the variable put here must match the query variable //todo trap
+        'userID': id
       },
     );
 
@@ -97,11 +165,11 @@ class UserQueries extends _$UserQueries {
     debugPrint('FULL USER RESULT: ${result.data}');
 
     debugPrint('USER TRIM DOWN: ${result.data!['getUser']}');
-    final userJson = result.data!['getUser'];
+    final userJson = result.data!['getUser']; // todo error when null
 
     // retrieve the data
     final User user = User.fromJson(userJson);
     state = state.copyWith(
-         id: user.id, name: user.name, description: user.description);
+        id: user.id, name: user.name, description: user.description);
   }
 }
