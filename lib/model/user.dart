@@ -66,7 +66,7 @@ class UserQueries extends _$UserQueries {
         id: user.id, name: user.name, description: user.description);
   }
 
-  Future<void> deleteUser(String id) async {
+  Future<void> deleteUser({required String id }) async {
     final deleteUserMutation =
         await rootBundle.loadString('lib/graphql/delete_user.graphql');
 
@@ -90,7 +90,7 @@ class UserQueries extends _$UserQueries {
     }
 
     debugPrint('DELETED USER: ${result.data}');
-    debugPrint('DELETED USER TRIM DOWN: ${result.data!['user'][0]}');
+    debugPrint('DELETED USER TRIM DOWN: ${result.data!['deletedUser']['user'][0]}');
   }
 
   Future<void> updateUser({
@@ -140,7 +140,7 @@ class UserQueries extends _$UserQueries {
   }
 
   // need to add a user before getting one the local server
-  Future<void> getUser(String id) async {
+  Future<void> getUser({required String id}) async {
     final getUserQuery =
         await rootBundle.loadString('lib/graphql/get_user.graphql');
 
