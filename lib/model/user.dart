@@ -24,6 +24,7 @@ class User with _$User {
 class UserQueries extends _$UserQueries {
   late final GraphQLClient client;
   bool isLoading = false;
+  String? status;
 
   @override
   User build() {
@@ -55,18 +56,21 @@ class UserQueries extends _$UserQueries {
       debugPrint(result.exception.toString());
     }
 
-    debugPrint('USER: ${result.data}');
+    debugPrint('ADD USER: ${result.data}');
 
-    debugPrint('USER: ${result.data!['addUser']['user'][0]}');
+    debugPrint('ADD USER TRIM DOWN: ${result.data!['addUser']['user'][0]}');
     final userJson = result.data!['addUser']['user'][0];
 
     // retrieve the data
     final User user = User.fromJson(userJson);
+
+    status = 'Added User';
+
     state = state.copyWith(
         id: user.id, name: user.name, description: user.description);
   }
 
-  Future<void> deleteUser({required String id }) async {
+  Future<void> deleteUser({required String id}) async {
     final deleteUserMutation =
         await rootBundle.loadString('lib/graphql/delete_user.graphql');
 
@@ -89,8 +93,17 @@ class UserQueries extends _$UserQueries {
       debugPrint(result.exception.toString());
     }
 
-    debugPrint('DELETED USER: ${result.data}');
-    debugPrint('DELETED USER TRIM DOWN: ${result.data!['deletedUser']['user'][0]}');
+    debugPrint('DELETE USER: ${result.data}');
+    debugPrint(
+        'DELETE USER TRIM DOWN: ${result.data!['deleteUser']['user'][0]}');
+
+    final userJson = result.data!['deleteUser']['user'][0];
+    final User user = User.fromJson(userJson);
+
+    status = 'Deleted User';
+
+    state = state.copyWith(
+        id: user.id, name: user.name, description: user.description);
   }
 
   Future<void> updateUser({
@@ -127,16 +140,18 @@ class UserQueries extends _$UserQueries {
     }
 
     debugPrint('UPDATED USER: ${result.data}');
-    debugPrint('UPDATED USER TRIM DOWN: ${result.data!['updateUser']['user'][0]}');
+    debugPrint(
+        'UPDATED USER TRIM DOWN: ${result.data!['updateUser']['user'][0]}');
 
+    final userJson =
+        result.data!['updateUser']['user'][0]; // todo error when null
 
-    final userJson = result.data!['updateUser']['user'][0]; // todo error when null
+    final User user = User.fromJson(userJson);
 
-     final User user = User.fromJson(userJson);
+    status = 'Updated User';
+
     state = state.copyWith(
         id: user.id, name: user.name, description: user.description);
-
-
   }
 
   // need to add a user before getting one the local server
@@ -162,13 +177,16 @@ class UserQueries extends _$UserQueries {
       debugPrint(result.exception.toString());
     }
 
-    debugPrint('FULL USER RESULT: ${result.data}');
+    debugPrint('GET USER RESULT: ${result.data}');
 
-    debugPrint('USER TRIM DOWN: ${result.data!['getUser']}');
+    debugPrint('GET USER TRIM DOWN: ${result.data!['getUser']}');
     final userJson = result.data!['getUser']; // todo error when null
 
     // retrieve the data
     final User user = User.fromJson(userJson);
+
+    status = 'Got User';
+
     state = state.copyWith(
         id: user.id, name: user.name, description: user.description);
   }

@@ -61,22 +61,23 @@ class UserFormFieldState extends ConsumerState<UserFormField> {
           ],
           OutlinedButton(
             onPressed: () async {
+              FocusScope.of(context).unfocus(); // remove the keyboard
               final queries = ref.read(userQueriesProvider.notifier);
 
               switch (widget.name) {
                 case 'ADD':
-                  queries.addUser(
+                  await queries.addUser(
                       name: nameTextController.text,
                       description: descriptionTextController.text);
                   break;
                 case 'GET':
-                  queries.getUser(id: idTextController.text);
+                  await queries.getUser(id: idTextController.text);
                   break;
                 case 'DELETE':
-                  queries.deleteUser(id: idTextController.text);
+                  await queries.deleteUser(id: idTextController.text);
                   break;
                 case 'UPDATE':
-                  queries.updateUser(
+                  await queries.updateUser(
                     id: idTextController.text,
                     name: nameTextController.text,
                     description: descriptionTextController.text,
