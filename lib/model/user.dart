@@ -82,6 +82,7 @@ class UserQueries extends _$UserQueries {
     final MutationOptions options = MutationOptions(
       document: gql(deleteUserMutation),
       variables: <String, dynamic>{
+      // the variable put here must match the query variable ($filter)
         'filter': {
           'id': id,
         }

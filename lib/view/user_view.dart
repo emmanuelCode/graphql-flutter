@@ -71,9 +71,12 @@ class ResultWidget extends ConsumerWidget {
 
     return Column(
       children: [
-        Text('Status: ${status ?? 'null'}',style: Theme.of(context).textTheme.titleLarge,),
+        Text(
+          'Status: ${status ?? 'null'}',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
         Card(
-        shape: const OutlineInputBorder(),
+          shape: const OutlineInputBorder(),
           elevation: 0,
           margin: const EdgeInsets.all(16.0),
           child: Column(
