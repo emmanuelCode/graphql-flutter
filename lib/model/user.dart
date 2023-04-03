@@ -107,9 +107,9 @@ class UserQueries extends _$UserQueries {
   }
 
   Future<void> updateUser({
-    String id = '0x1d',
-    String name = 'update John',
-    String description = 'update Doe',
+    required String id,
+    required String name,
+    String? description,
   }) async {
     final updateUserMutation =
         await rootBundle.loadString('lib/graphql/update_user.graphql');
