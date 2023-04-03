@@ -3,7 +3,5 @@ query getUser($userID: ID!){
             id
             name
             description
-
     }
-
 }
