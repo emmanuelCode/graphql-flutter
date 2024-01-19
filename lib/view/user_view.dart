@@ -15,6 +15,7 @@ class HomeView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('GraphQL Sample'),
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           bottom: TabBar(
             tabs: queryNames
                 .map((name) => Tab(
