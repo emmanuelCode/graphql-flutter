@@ -12,7 +12,7 @@ void main() {
 }
 
 @riverpod
-GraphQLClient graphQLClient(GraphQLClientRef ref) {
+GraphQLClient graphQLClient(Ref ref) {
   return graphQLClientInit();
 }
 
@@ -30,4 +30,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

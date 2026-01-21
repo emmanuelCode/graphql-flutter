@@ -6,19 +6,46 @@ part of 'main.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$graphQLClientHash() => r'6b05feab54d256c6ea4fdde98176a7db5068c21d';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [graphQLClient].
 @ProviderFor(graphQLClient)
-final graphQLClientProvider = AutoDisposeProvider<GraphQLClient>.internal(
-  graphQLClient,
-  name: r'graphQLClientProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$graphQLClientHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final graphQLClientProvider = GraphQLClientProvider._();
 
-typedef GraphQLClientRef = AutoDisposeProviderRef<GraphQLClient>;
-// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
+final class GraphQLClientProvider
+    extends $FunctionalProvider<GraphQLClient, GraphQLClient, GraphQLClient>
+    with $Provider<GraphQLClient> {
+  GraphQLClientProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'graphQLClientProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$graphQLClientHash();
+
+  @$internal
+  @override
+  $ProviderElement<GraphQLClient> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  GraphQLClient create(Ref ref) {
+    return graphQLClient(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(GraphQLClient value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<GraphQLClient>(value),
+    );
+  }
+}
+
+String _$graphQLClientHash() => r'6b05feab54d256c6ea4fdde98176a7db5068c21d';

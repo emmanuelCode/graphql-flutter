@@ -6,13 +6,13 @@ part of 'user.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
+_User _$UserFromJson(Map<String, dynamic> json) => _User(
       id: json['id'] as String,
       name: json['name'] as String,
       description: json['description'] as String?,
     );
 
-Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
+Map<String, dynamic> _$UserToJson(_User instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
@@ -22,19 +22,50 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userQueriesHash() => r'57f5970683b90e17662ea4d639a1a752bfa6be7d';
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
 
-/// See also [UserQueries].
 @ProviderFor(UserQueries)
-final userQueriesProvider =
-    AutoDisposeNotifierProvider<UserQueries, User>.internal(
-  UserQueries.new,
-  name: r'userQueriesProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$userQueriesHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+final userQueriesProvider = UserQueriesProvider._();
 
-typedef _$UserQueries = AutoDisposeNotifier<User>;
-// ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions
+final class UserQueriesProvider extends $NotifierProvider<UserQueries, User> {
+  UserQueriesProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'userQueriesProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$userQueriesHash();
+
+  @$internal
+  @override
+  UserQueries create() => UserQueries();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(User value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<User>(value),
+    );
+  }
+}
+
+String _$userQueriesHash() => r'295b951d7002b44e2894ed9237a797ae602786c7';
+
+abstract class _$UserQueries extends $Notifier<User> {
+  User build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final ref = this.ref as $Ref<User, User>;
+    final element = ref.element as $ClassProviderElement<
+        AnyNotifier<User, User>, User, Object?, Object?>;
+    element.handleCreate(ref, build);
+  }
+}
