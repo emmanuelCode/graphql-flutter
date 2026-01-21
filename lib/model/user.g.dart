@@ -7,16 +7,16 @@ part of 'user.dart';
 // **************************************************************************
 
 _User _$UserFromJson(Map<String, dynamic> json) => _User(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      description: json['description'] as String?,
-    );
+  id: json['id'] as String,
+  name: json['name'] as String,
+  description: json['description'] as String?,
+);
 
 Map<String, dynamic> _$UserToJson(_User instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'description': instance.description,
-    };
+  'id': instance.id,
+  'name': instance.name,
+  'description': instance.description,
+};
 
 // **************************************************************************
 // RiverpodGenerator
@@ -30,15 +30,15 @@ final userQueriesProvider = UserQueriesProvider._();
 
 final class UserQueriesProvider extends $NotifierProvider<UserQueries, User> {
   UserQueriesProvider._()
-      : super(
-          from: null,
-          argument: null,
-          retry: null,
-          name: r'userQueriesProvider',
-          isAutoDispose: true,
-          dependencies: null,
-          $allTransitiveDependencies: null,
-        );
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'userQueriesProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
 
   @override
   String debugGetCreateSourceHash() => _$userQueriesHash();
@@ -64,8 +64,14 @@ abstract class _$UserQueries extends $Notifier<User> {
   @override
   void runBuild() {
     final ref = this.ref as $Ref<User, User>;
-    final element = ref.element as $ClassProviderElement<
-        AnyNotifier<User, User>, User, Object?, Object?>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<User, User>,
+              User,
+              Object?,
+              Object?
+            >;
     element.handleCreate(ref, build);
   }
 }

@@ -30,8 +30,7 @@ linter:
 
 
 
-## ignore lint analysis on generated files
 analyzer:
-  exclude:
-    - "**/*.g.dart"
-    - "**/*.freezed.dart"
+
+plugins:
+  riverpod_lint: ^3.1.2
