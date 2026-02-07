@@ -67,13 +67,22 @@ class ResultWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userQueriesProvider);
-    final String? status = ref.read(userQueriesProvider.notifier).status;
+    final userAsync = ref.watch(userQueriesProvider);
+
+    final String status = userAsync.when(
+      
+      data: (data) => data.status,
+      error: (e, _) => 'Error (See Logs)',
+      loading: () => 'Loading',
+    );
+
+    final user = userAsync.value?.user ??
+        const User(id: 'null', name: 'null', description: 'null');
 
     return Column(
       children: [
         Text(
-          'Status: ${status ?? 'null'}',
+          'Status: $status',
           style: Theme.of(context).textTheme.titleLarge,
         ),
         Card(

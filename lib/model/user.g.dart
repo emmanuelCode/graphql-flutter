@@ -28,7 +28,8 @@ Map<String, dynamic> _$UserToJson(_User instance) => <String, dynamic>{
 @ProviderFor(UserQueries)
 final userQueriesProvider = UserQueriesProvider._();
 
-final class UserQueriesProvider extends $NotifierProvider<UserQueries, User> {
+final class UserQueriesProvider
+    extends $AsyncNotifierProvider<UserQueries, ({String status, User user})> {
   UserQueriesProvider._()
     : super(
         from: null,
@@ -46,29 +47,30 @@ final class UserQueriesProvider extends $NotifierProvider<UserQueries, User> {
   @$internal
   @override
   UserQueries create() => UserQueries();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(User value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<User>(value),
-    );
-  }
 }
 
-String _$userQueriesHash() => r'295b951d7002b44e2894ed9237a797ae602786c7';
+String _$userQueriesHash() => r'e9053ace1b5690783b807bfeb978c99cdd4dc1fd';
 
-abstract class _$UserQueries extends $Notifier<User> {
-  User build();
+abstract class _$UserQueries
+    extends $AsyncNotifier<({String status, User user})> {
+  FutureOr<({String status, User user})> build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<User, User>;
+    final ref =
+        this.ref
+            as $Ref<
+              AsyncValue<({String status, User user})>,
+              ({String status, User user})
+            >;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<User, User>,
-              User,
+              AnyNotifier<
+                AsyncValue<({String status, User user})>,
+                ({String status, User user})
+              >,
+              AsyncValue<({String status, User user})>,
               Object?,
               Object?
             >;
