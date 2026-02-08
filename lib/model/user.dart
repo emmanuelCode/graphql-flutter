@@ -24,7 +24,9 @@ abstract class User with _$User {
 @riverpod
 class UserQueries extends _$UserQueries {
   late final GraphQLClient client;
-
+  
+  // this uses dart record syntax to return multiple values
+  // see: https://dart.dev/language/records
   @override
   Future<({User user, String status})> build() async {
     client = ref.read(graphQLClientProvider);
@@ -155,6 +157,7 @@ class UserQueries extends _$UserQueries {
 
       final QueryOptions options = QueryOptions(
         document: gql(getUserQuery),
+        // this will ensure we do not use cached data
         fetchPolicy: FetchPolicy.networkOnly,
         variables: <String, dynamic>{
           // the variable put here must match the query variable ($userID)
