@@ -4,8 +4,8 @@ import 'package:graphql_sample/view/user_form_fields.dart';
 
 import '../model/user.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class UserView extends StatelessWidget {
+  const UserView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,36 +25,25 @@ class HomeView extends StatelessWidget {
           ),
         ),
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 2,
-                  child: TabBarView(
-                    children: [
-                      UserFormField(
-                        index: 0,
-                        name: queryNames[0],
-                      ),
-                      UserFormField(
-                        index: 1,
-                        name: queryNames[1],
-                      ),
-                      UserFormField(
-                        index: 2,
-                        name: queryNames[2],
-                      ),
-                      UserFormField(
-                        index: 3,
-                        name: queryNames[3],
-                      ),
-                    ],
-                  ),
-                ),
-                const Divider(),
-                const ResultWidget(),
-              ],
+          child: ListView(
+            physics: NeverScrollableScrollPhysics(
             ),
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height / 2,
+                child: TabBarView(
+                  children: [
+                    for (final (int index, String name) in queryNames.indexed)
+                      UserFormField(
+                        index: index,
+                        name: name,
+                      ),
+                  ],
+                ),
+              ),
+              const Divider(),
+              const ResultWidget(),
+            ],
           ),
         ),
       ),
@@ -69,8 +58,8 @@ class ResultWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userAsync = ref.watch(userQueriesProvider);
 
+    // this will return the status of our model method results
     final String status = userAsync.when(
-      
       data: (data) => data.status,
       error: (e, _) => 'Error (See Logs)',
       loading: () => 'Loading',
